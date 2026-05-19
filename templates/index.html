@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IntelliDoc-AI: Enterprise Search Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #0f172a; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        .glass-panel { background: rgba(30, 41, 59, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans min-h-screen custom-scrollbar">
+
+    <header class="border-b border-slate-800 bg-slate-900/60 backdrop-blur sticky top-0 z-50 px-8 py-4 flex justify-between items-center">
+        <div class="flex items-center gap-3">
+            <div class="h-9 w-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-black text-white text-lg shadow-lg shadow-blue-500/20">I</div>
+            <div>
+                <h1 class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 text-transparent bg-clip-text">IntelliDoc-AI <span class="text-xs font-mono px-2 py-0.5 rounded bg-blue-500/10 text-blue-400 border border-blue-500/20 ml-2">v3.0 Production</span></h1>
+                <p class="text-xs text-slate-400 font-medium">Enterprise Node • CBIT Proddatur Campus Core</p>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <div class="text-right hidden sm:block">
+                <p class="text-xs text-slate-400 font-mono">Neural Engine Matrix</p>
+                <p class="text-xs text-emerald-400 font-semibold font-mono">Active & Synced</p>
+            </div>
+            <span class="h-3 w-3 rounded-full bg-emerald-500 animate-pulse shadow-lg shadow-emerald-500/50"></span>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto p-6 space-y-6">
+        
+        <div class="w-full glass-panel rounded-2xl p-6 shadow-2xl relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none"></div>
+            <h2 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-blue-500"></span> Universal Knowledge Extraction Search Engine
+            </h2>
+            
+            <div class="flex gap-3">
+                <div class="relative flex-1">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-slate-500">
+                        🔍
+                    </span>
+                    <input type="text" id="globalSearchInput" placeholder="Ask anything about the document (e.g., What are the highest placements? Show fee structure...)" class="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-11 pr-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all shadow-inner" disabled>
+                </div>
+                <button onclick="triggerGlobalSearch()" id="searchBtn" class="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white font-semibold text-sm px-7 py-3.5 rounded-xl transition shadow-lg shadow-blue-600/20 active:scale-95 flex items-center gap-2" disabled>
+                    <span>Analyze Context</span>
+                </button>
+            </div>
+
+            <div id="quickInsightsContainer" class="mt-4 flex flex-wrap items-center gap-2 text-xs text-slate-400">
+                <span class="font-mono text-slate-500">Quick Filters:</span>
+                <button onclick="quickSearch('Give a detailed overview of this document')" class="bg-slate-800 hover:bg-slate-700 hover:text-slate-200 border border-slate-700 px-3 py-1 rounded-full transition">📋 Document Executive Overview</button>
+                <button onclick="quickSearch('List out the key highlights, awards, and major milestones')" class="bg-slate-800 hover:bg-slate-700 hover:text-slate-200 border border-slate-700 px-3 py-1 rounded-full transition">🏆 Milestones & Achievements</button>
+                <button onclick="quickSearch('What are the placement statistics, top recruiting companies, and packages?')" class="bg-slate-800 hover:bg-slate-700 hover:text-slate-200 border border-slate-700 px-3 py-1 rounded-full transition">🚀 Placement Matrix</button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            
+            <div class="lg:col-span-4 space-y-6">
+                <div class="glass-panel rounded-2xl p-5 shadow-xl">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest mb-4">Ingestion Gateway</h3>
+                    
+                    <form id="uploadForm" class="space-y-4">
+                        <div class="border-2 border-dashed border-slate-700 hover:border-blue-500/60 rounded-xl p-6 text-center cursor-pointer transition bg-slate-900/40 relative" onclick="document.getElementById('fileInput').click()">
+                            <input type="file" id="fileInput" name="file" class="hidden" accept=".pdf,.txt" onchange="updateFileInfo()">
+                            <div class="text-3xl mb-2">📁</div>
+                            <p id="uploadPrompt" class="text-xs text-slate-400">Drop PDF or <span class="text-blue-400 font-semibold">browse campus files</span></p>
+                            <p id="fileNameDisplay" class="text-xs text-emerald-400 font-mono font-medium mt-1 hidden break-all"></p>
+                        </div>
+                        
+                        <button type="submit" id="submitBtn" class="w-full bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs py-3 px-4 rounded-xl transition flex items-center justify-center gap-2 shadow-md">
+                            <span>Execute Quantum Processing</span>
+                        </button>
+                    </form>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-5 shadow-xl space-y-4">
+                    <h3 class="text-xs font-bold text-slate-400 uppercase tracking-widest">Pipeline Metadata</h3>
+                    <div class="grid grid-cols-2 gap-3 font-mono text-[11px]">
+                        <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+                            <span class="text-slate-500 block mb-0.5">Model Stack</span>
+                            <span class="text-slate-300 font-bold">Gemini 2.5 Flash</span>
+                        </div>
+                        <div class="bg-slate-900/60 p-3 rounded-lg border border-slate-800">
+                            <span class="text-slate-500 block mb-0.5">Response Mode</span>
+                            <span class="text-indigo-400 font-bold">Deterministic</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-8">
+                <div class="glass-panel rounded-2xl p-6 min-h-[500px] flex flex-col shadow-2xl relative">
+                    <div class="flex justify-between items-center border-b border-slate-800 pb-4 mb-4">
+                        <div class="flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-indigo-500"></span>
+                            <h3 class="text-sm font-bold text-slate-200 tracking-wide">System Core Engine Output</h3>
+                        </div>
+                        <button onclick="window.print()" id="downloadBtn" class="hidden bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-medium py-1.5 px-3.5 rounded-lg border border-slate-700 transition flex items-center gap-1.5">
+                            <span>🖨️ Export Intelligence Dossier</span>
+                        </button>
+                    </div>
+
+                    <div id="loadingState" class="hidden flex-1 flex flex-col items-center justify-center space-y-4">
+                        <div class="relative w-12 h-12">
+                            <div class="absolute inset-0 border-4 border-blue-500/20 rounded-full"></div>
+                            <div class="absolute inset-0 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                        <p class="text-xs text-slate-400 font-mono tracking-wider">Running Multi-Modal Analytics Pipeline...</p>
+                    </div>
+
+                    <div id="errorState" class="hidden bg-red-950/30 border border-red-900/60 text-red-300 p-4 rounded-xl text-xs font-mono space-y-2 animate-fade-in">
+                        <p class="font-bold flex items-center gap-1.5 text-red-400">⚠️ PIPELINE ERROR EXCEPTION INTERCEPTED</p>
+                        <p id="errorText" class="text-slate-400"></p>
+                    </div>
+
+                    <div id="outputContent" class="flex-1 overflow-y-auto max-h-[500px] pr-2 custom-scrollbar space-y-4 text-slate-300">
+                        <div class="text-center text-slate-500 italic mt-28 space-y-2">
+                            <div class="text-4xl">📥</div>
+                            <p class="text-xs font-mono tracking-wide">Awaiting secure document payload stream to initialize vector indices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function updateFileInfo() {
+            const fileInput = document.getElementById('fileInput');
+            const fileDisplay = document.getElementById('fileNameDisplay');
+            const prompt = document.getElementById('uploadPrompt');
+            if(fileInput.files.length > 0) {
+                fileDisplay.innerText = "✓ Active Content: " + fileInput.files[0].name;
+                fileDisplay.classList.remove('hidden');
+                prompt.classList.add('hidden');
+            }
+        }
+
+        document.getElementById('uploadForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const fileInput = document.getElementById('fileInput');
+            if(fileInput.files.length === 0) return alert('Bro, select a document first!');
+
+            const formData = new FormData();
+            formData.append('file', fileInput.files[0]);
+
+            document.getElementById('loadingState').classList.remove('hidden');
+            document.getElementById('outputContent').classList.add('hidden');
+            document.getElementById('errorState').classList.add('hidden');
+
+            try {
+                const response = await fetch('/upload', { method: 'POST', body: formData });
+                const data = await response.json();
+
+                document.getElementById('loadingState').classList.add('hidden');
+
+                if (response.ok) {
+                    document.getElementById('outputContent').innerHTML = data.analysis_payload;
+                    document.getElementById('outputContent').classList.remove('hidden');
+                    document.getElementById('downloadBtn').classList.remove('hidden');
+                    
+                    // సెర్చ్ బార్స్ అన్‌లాక్ చేయడం
+                    document.getElementById('globalSearchInput').removeAttribute('disabled');
+                    document.getElementById('globalSearchInput').placeholder = "Ask any target question from this prospectus...";
+                    document.getElementById('searchBtn').removeAttribute('disabled');
+                } else {
+                    throw new Error(data.error || 'Cognitive ingestion failure.');
+                }
+            } catch (err) {
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('errorText').innerText = err.message;
+                document.getElementById('errorState').classList.remove('hidden');
+            }
+        });
+
+        async function triggerGlobalSearch() {
+            const searchInput = document.getElementById('globalSearchInput');
+            const query = searchInput.value.trim();
+            if (!query) return;
+
+            const outputContainer = document.getElementById('outputContent');
+            
+            // అవుట్‌పుట్ ప్యానల్‌ను లోడింగ్ స్టేట్‌కి మార్చడం
+            document.getElementById('loadingState').classList.remove('hidden');
+            outputContainer.classList.add('hidden');
+            document.getElementById('errorState').classList.add('hidden');
+
+            try {
+                const response = await fetch('/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ query: query })
+                });
+                const data = await response.json();
+                
+                document.getElementById('loadingState').classList.add('hidden');
+                outputContainer.classList.remove('hidden');
+
+                if (response.ok) {
+                    // సెర్చ్ రిజల్ట్‌ను మెయిన్ స్క్రీన్ పైన అల్ట్రా-క్లీన్ ప్రొఫెషనల్ బాక్స్‌లో చూపించడం
+                    outputContainer.innerHTML = `
+                        <div class="bg-blue-950/20 border border-blue-800/40 p-5 rounded-xl mb-6 shadow-inner">
+                            <p class="text-xs font-mono text-blue-400 uppercase tracking-widest mb-2">🔍 Instant Search Response Target:</p>
+                            <h4 class="text-sm font-bold text-white mb-3 italic">"${query}"</h4>
+                            <div class="text-slate-200 space-y-2 border-t border-slate-800 pt-3">${data.reply}</div>
+                        </div>
+                        <div class="border-t border-slate-800/80 pt-4 opacity-40">
+                            <p class="text-[11px] font-mono tracking-wider text-slate-500 mb-2">PREVIOUS FULL ANALYSIS DOSSIER RETAINED BELOW:</p>
+                        </div>
+                    ` + outputContainer.innerHTML;
+                } else {
+                    throw new Error(data.error);
+                }
+            } catch (err) {
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('errorText').innerText = err.message;
+                document.getElementById('errorState').classList.remove('hidden');
+            }
+        }
+
+        function quickSearch(promptText) {
+            document.getElementById('globalSearchInput').value = promptText;
+            triggerGlobalSearch();
+        }
+    </script>
+</body>
+</html>

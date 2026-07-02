@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise AI Document Intelligence Dashboard</title>
+    <script src="[https://cdn.tailwindcss.com](https://cdn.tailwindcss.com)"></script>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body class="bg-slate-900 min-h-screen text-slate-100 font-sans antialiased">
+
+    <div class="max-w-5xl mx-auto px-4 py-16">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-sky-400 to-indigo-400 tracking-tight mb-3">
+                AI Document Intelligence Pipeline
+            </h1>
+            <p class="text-base md:text-lg text-slate-400 max-w-2xl mx-auto">
+                Upload your structured text or scanned multi-page college academic brochures for visual entity analytics extraction.
+            </p>
+        </div>
+
+        <div class="bg-slate-800 rounded-3xl shadow-xl border border-slate-700/60 p-6 md:p-10 mb-10 transition hover:border-slate-700">
+            <form id="asyncUploadForm" enctype="multipart/form-data" class="space-y-6">
+                <div class="border-2 border-dashed border-slate-600 hover:border-sky-500 rounded-2xl p-10 transition cursor-pointer relative bg-slate-900/40" id="dropZoneContainer">
+                    <input type="file" id="documentPayloadInput" name="file" accept=".pdf,.txt" class="absolute inset-0 w-full h-full opacity-0 cursor-pointer z-50">
+                    <div class="space-y-3 text-center">
+                        <div class="text-5xl">📥</div>
+                        <p class="text-sm font-semibold text-slate-300" id="fileStatusDisplay">
+                            Drag & drop your PDF package here, or click to browse workspace
+                        </p>
+                        <p class="text-xs text-slate-500">Supports text arrays or raw image/scanned PDF configurations up to 32MB</p>
+                    </div>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-sky-500 to-indigo-600 hover:from-sky-600 hover:to-indigo-700 text-white font-bold py-4 px-6 rounded-2xl transition shadow-lg transform active:scale-[0.99]">
+                    Execute Cognitive Extraction Sequence
+                </button>
+            </form>
+        </div>
+
+        <div id="runtimeResponseSection" class="bg-slate-800 rounded-3xl shadow-xl border border-slate-700/60 p-6 md:p-10 hidden-element">
+            <div class="flex items-center space-x-4 border-b border-slate-700/60 pb-5 mb-6">
+                <span id="runtimeStateIcon" class="text-3xl animate-pulse">⚡</span>
+                <div>
+                    <h3 id="runtimeStatusText" class="font-bold text-lg text-slate-200">Initializing Analysis Core Framework Matrix...</h3>
+                    <p class="text-xs text-slate-500">Engine Node Channel: Active Sync</p>
+                </div>
+            </div>
+            
+            <div id="analyticalResultViewport" class="text-slate-300">
+                Awaiting transmission packages sequence stream...
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/script.js"></script>
+</body>
+</html>

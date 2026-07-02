@@ -1,0 +1,57 @@
+/* Core Structural Dynamic Overrides Wrapper Dashboard Mode */
+.hidden-element {
+    display: none !important;
+}
+
+#analyticalResultViewport {
+    font-size: 1rem;
+    line-height: 1.75;
+}
+
+.payload-h1 {
+    font-size: 1.85rem;
+    font-weight: 900;
+    color: #f1f5f9;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 0.5rem;
+}
+
+.payload-h2 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #f8fafc;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.payload-h3 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #cbd5e1;
+    margin-top: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.payload-p {
+    margin-bottom: 1.25rem;
+    color: #94a3b8;
+}
+
+.payload-ul {
+    margin-top: 0.5rem;
+    margin-bottom: 1.25rem;
+    padding-left: 1.75rem;
+    list-style-type: square;
+}
+
+.payload-li {
+    margin-bottom: 0.6rem;
+    color: #cbd5e1;
+}
+
+.payload-strong {
+    color: #38bdf8;
+    font-weight: 600;
+}
